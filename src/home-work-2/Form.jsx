@@ -9,8 +9,8 @@ const Form = () => {
     
     if(email && password){
       console.log(email, password)
-      e.target.children[0].value = ''
-      e.target.children[1].value = ''
+      email = e.target.children[0].value = ''
+      password = e.target.children[1].value = ''
     }else{
       alert('Пожалуйста, введите данные')
     }
