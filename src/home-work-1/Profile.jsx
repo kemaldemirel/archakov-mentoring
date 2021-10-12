@@ -1,7 +1,7 @@
 import React from 'react'
 import classes from './style.module.css'
 
-const Profile = ({title, name, registerAt}) => {
+const Profile = ( {title, name, registerAt} ) => {
   let options = {
     year: 'numeric',
     month: 'long',

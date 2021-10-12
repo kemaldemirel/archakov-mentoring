@@ -4,13 +4,23 @@ const Form = () => {
   let email = ''
   let password = ''
 
+  const handleChange = (e) =>{
+    if(e.target.type === 'email'){
+      email = e.target.value
+    }
+    if(e.target.type === 'password'){
+      password = e.target.value
+    }
+  }
+
   const handleSubmit = (e) =>{
     e.preventDefault()
     
     if(email && password){
       console.log(email, password)
-      email = e.target.children[0].value = ''
-      password = e.target.children[1].value = ''
+      e.target.reset()
+      email = ''
+      password = ''
     }else{
       alert('Пожалуйста, введите данные')
     }
@@ -30,12 +40,12 @@ const Form = () => {
       <input 
         type="email" 
         placeholder="Email" 
-        onChange={(e) => email = e.target.value}
+        onChange={handleChange}
       />
       <input 
         type="password" 
         placeholder="Пароль" 
-        onChange={(e) => password = e.target.value}
+        onChange={handleChange}
       />
       <button type="submit">Войти</button>
     </form>
