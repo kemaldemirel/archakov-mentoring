@@ -1,0 +1,26 @@
+*{
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+#app{
+  width: 500px;
+  margin: 0 auto;
+}
+
+#app h1{
+  margin-bottom: 10px;
+}
+
+#app-list{
+  margin-bottom: 10px;
+}
+
+#app-list li{
+  display: flex;
+}
+
+#app-list li button{
+  margin-left: 20px;
+}

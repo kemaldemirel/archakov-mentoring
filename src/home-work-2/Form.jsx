@@ -4,16 +4,16 @@ const Form = () => {
   let email = ''
   let password = ''
 
-  const handleChange = (e) =>{
+  const handleChange = (e) => {
     if(e.target.type === 'email'){
-      email = e.target.value
+      email = e.target.value.trim()
     }
     if(e.target.type === 'password'){
-      password = e.target.value
+      password = e.target.value.trim()
     }
   }
 
-  const handleSubmit = (e) =>{
+  const handleSubmit = (e) => {
     e.preventDefault()
     
     if(email && password){
