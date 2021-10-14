@@ -5,6 +5,7 @@ import Phrase from './components/Phrase'
 import {adjectivesArr, nounsArr} from './arrays'
 
 const App = () => {
+  //начальный стейт
   const [list, setList] = useState([])
 
   const generateList = () => {
