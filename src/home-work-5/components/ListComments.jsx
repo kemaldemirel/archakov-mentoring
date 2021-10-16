@@ -24,21 +24,27 @@ export default function ListComments({data, onDeleteComment}) {
 
   return (
     <List sx={stylesList}>
+
       <Typography variant="h5" gutterBottom component="h5">
         Отзывы
       </Typography>
+
       {
         data.map((item) => 
           <ListItem key={item.id} sx={{alignItems: 'flex-start'}}>
+
             <ListItemAvatar>
               <Avatar>
                 <PersonIcon />
               </Avatar>
             </ListItemAvatar>
+
             <ListItemText sx={{margin: '0'}} primary={item.fullName} secondary={item.text}/>
+
             <IconButton onClick={() => onDeleteComment(item)} edge="end" aria-label="delete">
               <DeleteIcon />
             </IconButton>
+            
           </ListItem>  
         )
       }

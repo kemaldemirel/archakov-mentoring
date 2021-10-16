@@ -41,6 +41,7 @@ export default function FromComments({onAddComment}) {
       noValidate
       autoComplete="off"
     >
+
       <Typography 
         sx={
           {fontWeight: '700'}
@@ -51,6 +52,7 @@ export default function FromComments({onAddComment}) {
       >
         Обратная связь:
       </Typography>
+
       <TextField
         value={value.fullName}
         fullWidth 
@@ -60,6 +62,7 @@ export default function FromComments({onAddComment}) {
         margin="normal"
         onChange={(e) => setValue({...value, fullName: e.target.value})}
       />
+
       <TextField 
         value={value.email}
         fullWidth 
@@ -69,6 +72,7 @@ export default function FromComments({onAddComment}) {
         margin="normal"
         onChange={(e) => setValue({...value, email: e.target.value})}
       />
+
       <TextField
           sx={
             {width: '100%'}
@@ -81,6 +85,7 @@ export default function FromComments({onAddComment}) {
           margin="normal"
           onChange={(e) => setValue({...value, text: e.target.value})}
         />
+
       <Button 
         sx={
           {width: '100%'}
@@ -90,6 +95,7 @@ export default function FromComments({onAddComment}) {
       >
         Отправить
       </Button>
+      
     </Box>
   );
 }
