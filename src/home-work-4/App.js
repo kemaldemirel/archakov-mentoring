@@ -14,10 +14,8 @@ const App = () => {
       ${adjectivesArr[Math.floor(Math.random() * adjectivesArr.length)]} 
       ${nounsArr[Math.floor(Math.random() * nounsArr.length)]}
     `
-    const result = []
-    result.push(string)
     
-    setList([...list, result])
+    setList([string,...list])
   }
 
   const resetState = () => {
