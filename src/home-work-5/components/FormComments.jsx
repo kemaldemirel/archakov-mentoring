@@ -13,17 +13,21 @@ export default function FromComments({onAddComment}) {
   })
 
   const createNewComment = () => {
-    const newComment = {
-      ...value,
-      id: Date.now,
-      createdAt: Date.now(),
+    if(value.fullName.trim() && value.email.trim() && value.text.trim()){
+      const newComment = {
+        ...value,
+        id: Date.now,
+        createdAt: Date.now(),
+      }
+      setValue({
+        fullName: '',
+        email: '',
+        text: ''
+      })
+      onAddComment(newComment)
+    }else{
+      alert('Заполните все поля')
     }
-    setValue({
-      fullName: '',
-      email: '',
-      text: ''
-    })
-    onAddComment(newComment)
   }
 
   const stylesForm = {
@@ -95,7 +99,7 @@ export default function FromComments({onAddComment}) {
       >
         Отправить
       </Button>
-      
+
     </Box>
   );
 }
