@@ -12,9 +12,7 @@ const App = () => {
 
   React.useEffect(() => {
     const commentsToLS = JSON.parse(localStorage.getItem('comments')) || []
-    if(commentsToLS !== null){
-      setComments(commentsToLS)
-    }
+    setComments(commentsToLS)
   },[])
 
   React.useEffect(() => {
