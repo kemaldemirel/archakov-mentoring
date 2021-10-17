@@ -12,6 +12,9 @@ export default function FromComments({onAddComment}) {
     text: ''
   })
 
+  const [error, setError] = React.useState(false)
+  const [errorText, setErrorText] = React.useState('')
+
   const createNewComment = () => {
     if(value.fullName.trim() && value.email.trim() && value.text.trim()){
       const newComment = {
@@ -24,9 +27,12 @@ export default function FromComments({onAddComment}) {
         email: '',
         text: ''
       })
+      setError(!error)
+      setErrorText('')
       onAddComment(newComment)
     }else{
-      alert('Заполните все поля')
+      setError(!error)
+      setErrorText('Заполните все поля!')
     }
   }
 
@@ -58,6 +64,7 @@ export default function FromComments({onAddComment}) {
       </Typography>
 
       <TextField
+        error={error}
         value={value.fullName}
         fullWidth 
         id="outlined-basic" 
@@ -68,6 +75,7 @@ export default function FromComments({onAddComment}) {
       />
 
       <TextField 
+        error={error}
         value={value.email}
         fullWidth 
         id="outlined-basic" 
@@ -78,6 +86,7 @@ export default function FromComments({onAddComment}) {
       />
 
       <TextField
+          error={error}
           sx={
             {width: '100%'}
           }
@@ -90,6 +99,10 @@ export default function FromComments({onAddComment}) {
           onChange={(e) => setValue({...value, text: e.target.value})}
         />
 
+      {
+        errorText && <span style={{display: 'inline-block',marginBottom: '10px',color: 'red'}}>{errorText}</span>
+      }
+
       <Button 
         sx={
           {width: '100%'}
@@ -99,7 +112,6 @@ export default function FromComments({onAddComment}) {
       >
         Отправить
       </Button>
-
     </Box>
   );
 }
