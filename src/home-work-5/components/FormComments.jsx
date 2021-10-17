@@ -12,6 +12,8 @@ export default function FromComments({onAddComment}) {
     text: ''
   })
 
+  const [error, setError] = React.useState(false)
+
   const createNewComment = () => {
     if(value.fullName.trim() && value.email.trim() && value.text.trim()){
       const newComment = {
@@ -24,9 +26,10 @@ export default function FromComments({onAddComment}) {
         email: '',
         text: ''
       })
+      setError(!error)
       onAddComment(newComment)
     }else{
-      alert('Заполните все поля')
+      setError(!error)
     }
   }
 
@@ -58,6 +61,7 @@ export default function FromComments({onAddComment}) {
       </Typography>
 
       <TextField
+        error={error}
         value={value.fullName}
         fullWidth 
         id="outlined-basic" 
@@ -68,6 +72,7 @@ export default function FromComments({onAddComment}) {
       />
 
       <TextField 
+        error={error}
         value={value.email}
         fullWidth 
         id="outlined-basic" 
@@ -78,6 +83,7 @@ export default function FromComments({onAddComment}) {
       />
 
       <TextField
+          error={error}
           sx={
             {width: '100%'}
           }
