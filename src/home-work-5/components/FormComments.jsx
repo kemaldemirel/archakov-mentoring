@@ -13,6 +13,7 @@ export default function FromComments({onAddComment}) {
   })
 
   const [error, setError] = React.useState(false)
+  const [errorText, setErrorText] = React.useState('')
 
   const createNewComment = () => {
     if(value.fullName.trim() && value.email.trim() && value.text.trim()){
@@ -27,9 +28,11 @@ export default function FromComments({onAddComment}) {
         text: ''
       })
       setError(!error)
+      setErrorText('')
       onAddComment(newComment)
     }else{
       setError(!error)
+      setErrorText('Заполните все поля!')
     }
   }
 
@@ -96,6 +99,10 @@ export default function FromComments({onAddComment}) {
           onChange={(e) => setValue({...value, text: e.target.value})}
         />
 
+      {
+        errorText && <span style={{display: 'inline-block',marginBottom: '10px',color: 'red'}}>{errorText}</span>
+      }
+
       <Button 
         sx={
           {width: '100%'}
@@ -105,7 +112,6 @@ export default function FromComments({onAddComment}) {
       >
         Отправить
       </Button>
-
     </Box>
   );
 }
