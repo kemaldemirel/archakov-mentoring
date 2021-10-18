@@ -4,7 +4,8 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 
 export default function App() {
   const { pathname } = window.location;
-  const postID = pathname.split('/').splice(-1, 1).join('')
+  const postID = pathname.split('/').pop()
+  console.log(postID)
   
   return (
     <div className="App">
@@ -49,7 +50,7 @@ export default function App() {
         </Row>
       )}
       {
-        pathname.includes('post') && (
+        pathname.includes('post') && postID && (
           <Article postID={postID} />
         )
       }
