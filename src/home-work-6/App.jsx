@@ -1,68 +1,98 @@
-import Article from './Article.jsx'
-import { Nav, Navbar, Row, Col, Card } from "react-bootstrap";
-import 'bootstrap/dist/css/bootstrap.min.css';
+import React from "react";
+import { useForm } from "react-hook-form";
+import TextField from '@mui/material/TextField'; 
+import Button from '@mui/material/Button'
 
-export default function App() {
-  const { pathname } = window.location;
-  const postID = pathname.split('/').pop()
-  console.log(postID)
-  
+function App() {
+  const { handleSubmit, register, formState, reset } = useForm();
+
+  const onSubmit = (values) => console.log("ФОРМА!", values);
+
+  //очистка формы
+  const resetForm = () => {
+    reset({
+      firstName: "",
+      lastName: "",
+      email: "",
+      password: ""
+    });
+  };
+
   return (
     <div className="App">
-      <header>
-        <h2>
-          <a href="/">React Blog</a>
-        </h2>
-        <Nav variant="pills" defaultActiveKey="/">
-          <Nav.Item>
-            <Nav.Link eventKey="/home" to="/">
-              Главная
-            </Nav.Link>
-          </Nav.Item>
-          <Nav.Item>
-            <Nav.Link eventKey="/home" to="/about">
-              Обо мне
-            </Nav.Link>
-          </Nav.Item>
-          <Nav.Item>
-            <Nav.Link eventKey="/home" to="/profile">
-              Профиль
-            </Nav.Link>
-          </Nav.Item>
-        </Nav>
-      </header>
-      {pathname === "/" && (
-        <Row xs={1} md={3} className="g-4">
-          <Col>
-            <Card>
-              <Card.Img variant="top" src="https://via.placeholder.com/150x150" />
-              <Card.Body>
-                <Card.Title>
-                  <a href="/post/1">Card title</a>
-                </Card.Title>
-                <Card.Text>
-                  This is a longer card with supporting text below as a natural lead-in to
-                  additional content. This content is a little bit longer.
-                </Card.Text>
-              </Card.Body>
-            </Card>
-          </Col>
-        </Row>
-      )}
-      {
-        pathname.includes('post') && postID && (
-          <Article postID={postID} />
-        )
-      }
-      {pathname === "/about" && (
-        <Card>
-          <Card.Body>Это мой личный сайт!</Card.Body>
-        </Card>
-      )}
+      <div className="row">
+        <TextField
+          name="firstName"
+          label="Имя"
+          {...register("firstName", {
+            validate: (value) => value !== "admin" || "Nice try!"
+          })}
+          helperText={
+            formState.errors.firstName && formState.errors.firstName.message
+          }
+          error={!!formState.errors.firstName}
+          fullWidth
+        />
+        <TextField
+          name="lastName"
+          label="Фамилия"
+          {...register("lastName", {
+            required: "Это обязательное поле!"
+          })}
+          helperText={
+            formState.errors.lastName && formState.errors.lastName.message
+          }
+          error={!!formState.errors.lastName}
+          fullWidth
+        />
+      </div>
+      <div className="row">
+        <TextField
+          {...register("email", {
+            pattern: {
+              value: /^[A-Z0-9._%+-]+@[A-Z0-9._%+-]+\.[A-Z]{2,}$/i,
+              message: "Это неверная почта!"
+            }
+          })}
+          helperText={formState.errors.email && formState.errors.email.message}
+          error={!!formState.errors.email}
+          name="email"
+          label="E-Mail"
+          defaultValue=""
+          fullWidth
+        />
+        <TextField
+          {...register("password", {
+            required: "Это обязательное поле!"
+          })}
+          helperText={
+            formState.errors.password && formState.errors.password.message
+          }
+          error={!!formState.errors.password}
+          name="password"
+          type="password"
+          label="Пароль"
+          fullWidth
+        />
+      </div>
+      <div className="row">
+        <TextField name="about" label="Обо мне" fullWidth />
+      </div>
       <br />
-      <Navbar bg="light" style={{ paddingLeft: 20 }}>
-        <Navbar.Brand href="#home">My site (c) 2021</Navbar.Brand>
-      </Navbar>
+      <div className="row">
+        <Button
+          onClick={handleSubmit(onSubmit)}
+          variant="contained"
+          color="primary"
+        >
+          Зарегистрироваться
+        </Button>
+        <Button variant="contained" color="secondary" onClick={resetForm}>
+          Очистить
+        </Button>
+      </div>
     </div>
   );
 }
+
+export default App;
