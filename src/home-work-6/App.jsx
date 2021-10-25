@@ -2,20 +2,35 @@ import React from "react";
 import { useForm } from "react-hook-form";
 import TextField from '@mui/material/TextField'; 
 import Button from '@mui/material/Button'
+import { yupResolver } from '@hookform/resolvers/yup';
+import * as yup from "yup";
 
 function App() {
-  const { handleSubmit, register, formState, reset } = useForm();
+
+  const schema = yup.object({
+    firstName: yup.string().min(4, 'Слишком короткое имя').required('Это обязательное поле!'),
+    lastName: yup.string().required('Это обязательное поле!'),
+    email: yup.string().email('Неверная почта').required('Обязятельно введите почту')
+  })
+
+  const defaultValues = {
+    firstName: "",
+    lastName: "",
+    email: "",
+    password: ""
+  }
+
+  const { handleSubmit, register, formState, reset } = useForm({
+    defaultValues,
+    resolver: yupResolver(schema)
+  });
+
 
   const onSubmit = (values) => console.log("ФОРМА!", values);
 
   //очистка формы
   const resetForm = () => {
-    reset({
-      firstName: "",
-      lastName: "",
-      email: "",
-      password: ""
-    });
+    reset(defaultValues);
   };
 
   return (
@@ -24,9 +39,7 @@ function App() {
         <TextField
           name="firstName"
           label="Имя"
-          {...register("firstName", {
-            validate: (value) => value !== "admin" || "Nice try!"
-          })}
+          {...register("firstName")}
           helperText={
             formState.errors.firstName && formState.errors.firstName.message
           }
@@ -36,9 +49,7 @@ function App() {
         <TextField
           name="lastName"
           label="Фамилия"
-          {...register("lastName", {
-            required: "Это обязательное поле!"
-          })}
+          {...register("lastName")}
           helperText={
             formState.errors.lastName && formState.errors.lastName.message
           }
@@ -48,14 +59,11 @@ function App() {
       </div>
       <div className="row">
         <TextField
-          {...register("email", {
-            pattern: {
-              value: /^[A-Z0-9._%+-]+@[A-Z0-9._%+-]+\.[A-Z]{2,}$/i,
-              message: "Это неверная почта!"
-            }
-          })}
-          helperText={formState.errors.email && formState.errors.email.message}
+          {...register("email")}
           error={!!formState.errors.email}
+          helperText={
+            formState.errors.email && formState.errors.email.message
+          }
           name="email"
           label="E-Mail"
           defaultValue=""
